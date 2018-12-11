@@ -1,0 +1,30 @@
+name: you-get
+base: core18
+version: 'git'
+summary: Dumb downloader that scrapes the web
+description: |
+  You-Get is a tiny command-line utility to download media contents (videos,
+  audios, images) from the Web, in case there is no other handy way to do it.
+
+grade: stable
+confinement: strict
+
+parts:
+  you-get:
+    plugin: python
+    source: .
+    stage-packages:
+      - ffmpeg
+      - libslang2
+
+apps:
+  you-get:
+    command: bin/you-get
+    environment:
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
+    plugs:
+      - home
+      - network
+      - opengl
+      - pulseaudio
+      - removable-media
